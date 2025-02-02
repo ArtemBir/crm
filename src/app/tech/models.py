@@ -12,3 +12,6 @@ class Car(models.Model):
         Customer, null=True, on_delete=models.SET_NULL, related_name="cars"
     )
 
+    def __str__(self):
+        customer_info = f"Customer ID: {self.customer.id}" if self.customer else "No customer"
+        return f"{self.make} {self.model} ({self.year}) {self.color} {customer_info}"
