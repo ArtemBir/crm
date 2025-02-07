@@ -1,0 +1,41 @@
+[project]
+name = "crm"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "ArtemBir",email = "biryukov163ru@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "django (>=5.1.6,<6.0.0)",
+    "djangorestframework (>=3.15.2,<4.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+package-mode = false
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.4"
+ruff = "^0.9.5"
+
+[tool.ruff]
+line-length = 88  # Set max line length (default: 88)
+target-version = "py311"  # Adjust based on your Python version
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]  # Enable error (E), fatal (F), and import sorting (I)
+ignore = ["E501"]  # Ignore long lines
+
+[tool.ruff.format]
+quote-style = "double"  # Use double quotes
+indent-style = "space"  # Use spaces instead of tabs
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*.py" = ["E501"]  # Ignore long line errors in tests
+

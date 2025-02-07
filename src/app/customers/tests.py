@@ -1,5 +1,7 @@
 from django.test import TestCase
+
 from src.app.customers.models import Customer
+
 
 class CustomerModelTest(TestCase):
     def setUp(self):
