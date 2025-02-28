@@ -1,5 +1,8 @@
 name: Build and Push Docker Image
 
+env:
+  DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+  DOCKER_HUB_ACCESS_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
 on:
   push:
     branches:
@@ -34,8 +37,8 @@ jobs:
   build:
     name: build application
     needs:
-      - setenv
-    runs-on: [self-hosted, production]
+      - test
+    runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
       - name: checkout repository
@@ -43,3 +46,6 @@ jobs:
 
       - name: build application
         uses: ./.github/actions/build
+        with:
+          docker_hub_access_token: ${DOCKER_HUB_ACCESS_TOKEN}
+          docker_hub_username: ${DOCKER_HUB_USERNAME}
