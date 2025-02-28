@@ -1,0 +1,19 @@
+name: "Build project"
+description: "Action to build the project"
+
+runs:
+  using: "composite"
+  steps:
+    - name: checkout
+      uses: actions/checkout@v3
+
+    - name: Set up Kaniko
+      uses: imjasonh/setup-kaniko@v1
+
+    - name: Build and Push Docker Image
+      env:
+        DOCKER_HUB_USERNAME: ${{ secrets.DOCKER_HUB_USERNAME }}
+        DOCKER_HUB_ACCESS_TOKEN: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+      run: |
+        echo "${DOCKER_HUB_ACCESS_TOKEN}" | docker login -u "${DOCKER_HUB_USERNAME}" --password-stdin
+        /kaniko/executor --context . --dockerfile ops/Dockerfile --destination "${DOCKER_HUB_USERNAME}/crm-app:latest"
