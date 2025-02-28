@@ -43,4 +43,4 @@ jobs:
       - name: Run Django tests
         env:
           DATABASE_URL: postgres://test_user:test_password@localhost:5432/test_db
-        run: poetry run python src/manage.py test
+        run: poetry run python manage.py test
