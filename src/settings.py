@@ -83,6 +83,16 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': BASE_DIR / 'db.sqlite3',  # Change this to your database name
+        'USER': 'crm_user',  # Change this to your PostgreSQL username
+        'PASSWORD': 'crm_password',  # Change this to your PostgreSQL password
+        'HOST': 'localhost',  # Use the actual host if using Docker
+        'PORT': '5432',  # Default PostgreSQL port
+    }
+}
 
 
 # Password validation
