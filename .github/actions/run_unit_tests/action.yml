@@ -22,5 +22,5 @@ runs:
     - name: Run Django tests
       shell: bash
       env:
-        DATABASE_URL: postgres://test_user:test_password@localhost:5432/test_db
+        DATABASE_URL: postgresql://test_user:test_password@localhost:5432/test_db
       run: poetry run python manage.py test
