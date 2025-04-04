@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from email.policy import default
 from pathlib import Path
 from decouple import config
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -88,6 +89,18 @@ DATABASES = {
         'PORT': config('POSTGRES_PORT', default='5432'),
     }
 }
+
+if os.getenv("GITHUB_ACTIONS"):
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql_psycopg2",
+            "NAME": os.getenv("POSTGRES_DB", "test_db"),
+            "USER": os.getenv("POSTGRES_USER", "test_user"),
+            "PASSWORD": os.getenv("POSTGRES_PASSWORD", "test_password"),
+            "HOST": "localhost",
+            "PORT": "5432",
+        }
+    }
 
 
 # Password validation
