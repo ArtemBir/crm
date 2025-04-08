@@ -88,6 +88,7 @@ if USE_MOCK_DB:
             "NAME": ":memory:",
         }
     }
+
 else:
     DATABASES = {
         "default": {
