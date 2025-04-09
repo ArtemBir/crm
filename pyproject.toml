@@ -41,7 +41,7 @@ select = ["E", "F", "I"]  # Enable error (E), fatal (F), and import sorting (I)
 ignore = ["E501"]  # Ignore long lines
 
 [tool.ruff.format]
-quote-style = "double"  # Use double quotes
+quote-style = "single"  # Use double quotes
 indent-style = "space"  # Use spaces instead of tabs
 
 [tool.ruff.lint.per-file-ignores]
