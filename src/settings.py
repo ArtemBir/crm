@@ -79,27 +79,16 @@ WSGI_APPLICATION = 'src.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-USE_MOCK_DB = os.environ.get("SKIP_DB", "false").lower() == "true"
-
-if USE_MOCK_DB:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.sqlite3",
-            "NAME": ":memory:",
-        }
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
+        "NAME": config('POSTGRES_DB', default='crm_db'),
+        "USER": config('POSTGRES_USER', default='postgres'),
+        "PASSWORD": config('POSTGRES_PASSWORD'),
+        "HOST": config('POSTGRES_HOST', default='127.0.0.1'),
+        "PORT": config('POSTGRES_PORT', default='5432'),
     }
-
-else:
-    DATABASES = {
-        "default": {
-            "ENGINE": "django.db.backends.postgresql_psycopg2",
-            "NAME": config('POSTGRES_DB', default='crm_db'),
-            "USER": config('POSTGRES_USER', default='postgres'),
-            "PASSWORD": config('POSTGRES_PASSWORD'),
-            "HOST": config('POSTGRES_HOST', default='127.0.0.1'),
-            "PORT": config('POSTGRES_PORT', default='5432'),
-        }
-    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

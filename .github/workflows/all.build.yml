@@ -18,10 +18,6 @@ jobs:
 
       - name: build application
         uses: ./.github/actions/run_unit_tests
-        with:
-          skip_db: true
-        env:
-          SKIP_DB: true
 
   build:
     name: build application
