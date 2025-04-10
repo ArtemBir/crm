@@ -5,7 +5,6 @@ from src.app.tech.serializers import CarSerializer
 
 
 class CustomerSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Customer
         fields = '__all__'
