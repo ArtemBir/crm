@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import CarType, Car, CarPart, CarState
+from .models import CarType, Car, CarPart
 
 
 class CarTypeSerializer(serializers.ModelSerializer):
@@ -10,11 +10,11 @@ class CarTypeSerializer(serializers.ModelSerializer):
 
 
 class CarSerializer(serializers.ModelSerializer):
-    state = serializers.ChoiceField(choices=CarState.choices)
+    state = serializers.CharField(source='get_state_display', read_only=True)
 
     class Meta:
         model = Car
-        fields = '__all__'
+        fields = ['id', 'car_type', 'year', 'color', 'state']
 
 
 class CarPartSerializer(serializers.ModelSerializer):

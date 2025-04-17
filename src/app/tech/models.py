@@ -32,7 +32,7 @@ class Car(models.Model):
             f'Customer ID: {self.customer.id}' if self.customer else 'No customer'
         )
         state_display = self.get_state_display()
-        return f'{self.year} {self.color} ({self.car_type}) ({state_display}) {customer_info}'
+        return f'({self.car_type}) {self.year} {self.color} ({state_display}) {customer_info}'
 
 
 class CarPart(models.Model):
