@@ -3,11 +3,6 @@ from django.db import models
 from src.app.customers.models import Customer
 
 
-class CarState(models.TextChoices):
-    IN_SERVICE = 'IN_SERVICE', 'In Service'
-    NO_SERVICE = 'NO_SERVICE', 'No Service'
-
-
 class CarType(models.Model):
     make = models.CharField(max_length=30)
     model = models.CharField(max_length=30)
@@ -17,6 +12,10 @@ class CarType(models.Model):
 
 
 class Car(models.Model):
+    class CarState(models.TextChoices):
+        IN_SERVICE = 'IN_SERVICE', 'In Service'
+        NO_SERVICE = 'NO_SERVICE', 'No Service'
+
     year = models.PositiveIntegerField()
     color = models.CharField(max_length=30)
     car_type = models.ForeignKey(
@@ -32,7 +31,8 @@ class Car(models.Model):
         customer_info = (
             f'Customer ID: {self.customer.id}' if self.customer else 'No customer'
         )
-        return f'{self.year} {self.color} ({self.car_type}) {customer_info}'
+        state_display = self.get_state_display()
+        return f'{self.year} {self.color} ({self.car_type}) ({state_display}) {customer_info}'
 
 
 class CarPart(models.Model):
