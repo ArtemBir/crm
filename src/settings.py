@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'src.app.tech',
     'src.app.customers',
+    'src.app.accounting',
+
 ]
 
 MIDDLEWARE = [

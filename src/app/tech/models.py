@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.exceptions import ValidationError
 
+from src.app.accounting.models import Budget
 from src.app.customers.models import Customer
 
 
@@ -15,6 +16,7 @@ class CarType(models.Model):
 class CarPart(models.Model):
     name = models.CharField(max_length=100)
     car_type = models.ForeignKey(CarType, on_delete=models.CASCADE, null=True, blank=True, related_name='parts')
+    price = models.PositiveIntegerField(default=0)
     in_stock = models.PositiveIntegerField()
 
     def __str__(self):
@@ -41,8 +43,19 @@ class Car(models.Model):
         if not car_part.in_stock:
             raise ValidationError(f"Car part {car_part.name} is not in storage.")
 
+        budget = Budget.objects.first()
+        if not budget:
+            raise ValidationError('No budget available.')
+
+        if budget.value < car_part.price:
+            raise ValidationError('Not enough budget.')
+
+        budget.value -= car_part.price
+        budget.save()
+
         repair, created = Repair.objects.get_or_create(car=self)
         repair.car_parts.add(car_part)
+        repair.expense = float(car_part.price * 1.1)
 
         car_part.in_stock = car_part.in_stock - 1
         car_part.save()
@@ -63,3 +76,8 @@ class Car(models.Model):
 class Repair(models.Model):
     car = models.ForeignKey(Car, on_delete=models.CASCADE, related_name='repairs')
     car_parts = models.ManyToManyField(CarPart, related_name='repairs')
+    expense = models.DecimalField(default=0, decimal_places=1, max_digits=10)
+
+    def price(self):
+        total = sum(part.price for part in self.car_parts.all())
+        return int(total * 1.1)
