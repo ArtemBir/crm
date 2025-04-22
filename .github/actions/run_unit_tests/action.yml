@@ -3,9 +3,14 @@ description: "Action to build the project"
 
 runs:
   using: "composite"
+  permissions:
+    contents: write
+
   steps:
     - name: checkout
       uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Set up Python
       if: ${{ !env.ACT }}
