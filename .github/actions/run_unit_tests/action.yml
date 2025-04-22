@@ -1,13 +1,16 @@
 name: "Build project"
 description: "Action to build the project"
 
+inputs:
+  github_token:
+    description: "GitHub Token"
+    required: true
+
 runs:
   using: "composite"
   steps:
     - name: checkout
       uses: actions/checkout@v3
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Set up Python
       if: ${{ !env.ACT }}
@@ -39,6 +42,7 @@ runs:
         GIT_USER_NAME: ArtemBir
         GIT_USER_EMAIL: biryukov163ru@gmail.com
       run: |
+        echo "Token is ${{ inputs.github_token }}"
         git config --global user.name "${GIT_USER_NAME}"
         git config --global user.email "${GIT_USER_EMAIL}"
         git add badges/coverage.svg
