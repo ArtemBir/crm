@@ -3,9 +3,6 @@ description: "Action to build the project"
 
 runs:
   using: "composite"
-  permissions:
-    contents: write
-
   steps:
     - name: checkout
       uses: actions/checkout@v3
