@@ -30,3 +30,15 @@ runs:
     - name: Move badge to badges/
       shell: bash
       run: mv coverage.svg badges/
+
+    - name: Commit coverage badge
+      shell: bash
+      env:
+        GIT_USER_NAME: ArtemBir
+        GIT_USER_EMAIL: biryukov163ru@gmail.com
+      run: |
+        git config --global user.name "${GIT_USER_NAME}"
+        git config --global user.email "${GIT_USER_EMAIL}"
+        git add badges/coverage.svg
+        git commit -m "Update coverage badge" || echo "No changes to commit"
+        git push
