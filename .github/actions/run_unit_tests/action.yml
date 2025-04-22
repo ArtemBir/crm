@@ -22,10 +22,10 @@ runs:
     - name: Run Django tests with mocks
       shell: bash
       run: |
-        coverage poetry run pytest --nomigrations --reuse-db
-        coverage report
-        coverage html
-        coverage-badge -o coverage.svg -f
+        poetry run coverage run -m pytest --nomigrations --reuse-db
+        poetry run coverage report
+        poetry run coverage html
+        poetry run coverage-badge -o coverage.svg -f
 
     - name: Move badge to badges/
       shell: bash
