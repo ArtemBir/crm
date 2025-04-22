@@ -16,7 +16,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: build application
+      - name: Run unit tests
         uses: ./.github/actions/run_unit_tests
 
   build:
