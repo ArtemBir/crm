@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import CarType, Car, CarPart
+from .models import CarType, Car, CarPart, Repair
 
 
 class CarTypeSerializer(serializers.ModelSerializer):
@@ -20,4 +20,9 @@ class CarSerializer(serializers.ModelSerializer):
 class CarPartSerializer(serializers.ModelSerializer):
     class Meta:
         model = CarPart
+        fields = '__all__'
+
+class RepairSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Repair
         fields = '__all__'
