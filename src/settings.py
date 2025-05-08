@@ -72,6 +72,7 @@ CORS_ORIGIN_REGEX_WHITELIST = [
 
 INSTALLED_APPS += [
     'corsheaders',
+    'django.contrib.admin',
 ]
 
 MIDDLEWARE = [

@@ -1,12 +1,7 @@
-from rest_framework.generics import RetrieveUpdateDestroyAPIView, ListCreateAPIView
+from rest_framework import viewsets
 from .models import Budget
 from .serializers import BudgetSerializer
 
-class BudgetListCreateView(ListCreateAPIView):
+class BudgetViewSet(viewsets.ModelViewSet):
     queryset = Budget.objects.all()
     serializer_class = BudgetSerializer
-
-class BudgetDetailView(RetrieveUpdateDestroyAPIView):
-    queryset = Budget.objects.all()
-    serializer_class = BudgetSerializer
-    lookup_field = 'id'
